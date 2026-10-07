@@ -489,6 +489,160 @@
    "2025": 388.9
   }
  },
+ "business": {
+  "technology": [
+   [
+    "EUV High-NA (EXE)",
+    4,
+    1156.9
+   ],
+   [
+    "EUV (NXE)",
+    44,
+    10445.8
+   ],
+   [
+    "DUV ArF immersion",
+    131,
+    10311.4
+   ],
+   [
+    "DUV ArF dry",
+    16,
+    427.0
+   ],
+   [
+    "DUV KrF",
+    78,
+    1001.3
+   ],
+   [
+    "DUV i-line",
+    54,
+    307.3
+   ],
+   [
+    "Metrology & inspection",
+    208,
+    824.6
+   ]
+  ],
+  "installed_base": 8193.0,
+  "end_use": [
+   [
+    "Logic",
+    16054.1
+   ],
+   [
+    "Memory",
+    8420.2
+   ]
+  ],
+  "region": [
+   [
+    "China",
+    9519.7
+   ],
+   [
+    "Taiwan",
+    8337.9
+   ],
+   [
+    "South Korea",
+    8159.6
+   ],
+   [
+    "United States",
+    4089.1
+   ],
+   [
+    "Japan",
+    1420.9
+   ],
+   [
+    "Singapore",
+    608.4
+   ],
+   [
+    "EMEA",
+    524.3
+   ],
+   [
+    "Netherlands",
+    4.7
+   ],
+   [
+    "Rest of Asia",
+    2.7
+   ]
+  ],
+  "largest_customer_pct": 0.239,
+  "top2_pct": 0.38,
+  "top4_pct": 0.612,
+  "euv_units": {
+   "2024": 44,
+   "2025": 48
+  },
+  "backlog_eur_bn": 38.8
+ },
+ "milestones": [
+  {
+   "year": 1984,
+   "title": "Founded",
+   "text": "Joint venture of Philips and ASM International, starting in a shed next to a Philips office in Eindhoven."
+  },
+  {
+   "year": 1995,
+   "title": "IPO",
+   "text": "Listed on Amsterdam and Nasdaq; full independence funds the R&D race against Nikon and Canon."
+  },
+  {
+   "year": 2001,
+   "title": "Silicon Valley Group",
+   "text": "Acquisition adds US scale and the step-and-scan know-how behind the TWINSCAN platform."
+  },
+  {
+   "year": 2010,
+   "title": "First EUV tool",
+   "text": "The NXE:3100 pre-production EUV system ships to a customer research fab after 20+ years of R&D."
+  },
+  {
+   "year": 2012,
+   "title": "Customers co-invest",
+   "text": "Intel, TSMC and Samsung fund EUV development and take equity stakes, which locks in the ecosystem."
+  },
+  {
+   "year": 2013,
+   "title": "Cymer",
+   "text": "Acquiring the EUV light-source maker secures the hardest part of the EUV supply chain."
+  },
+  {
+   "year": 2016,
+   "title": "HMI",
+   "text": "E-beam metrology joins the portfolio and extends holistic lithography beyond the scanner."
+  },
+  {
+   "year": 2019,
+   "title": "EUV in volume",
+   "text": "The first EUV-made chips reach consumer devices; EUV becomes mandatory below 7nm."
+  },
+  {
+   "year": 2023,
+   "title": "High-NA",
+   "text": "The first EXE:5000 High-NA EUV system ships, extending the roadmap into the 2030s."
+  },
+  {
+   "year": 2025,
+   "title": "Record year",
+   "text": "EUR 32.7bn sales, EUR 38.8bn backlog and 48 EUV systems recognised as AI demand broadens."
+  }
+ ],
+ "guidance2030": {
+  "rev_low": 44000,
+  "rev_high": 60000,
+  "gm_low": 0.56,
+  "gm_high": 0.6
+ },
  "sources": {
   "S1": {
    "title": "ASML Form 20-F / Annual Report 2025 (US GAAP), filed 25 Feb 2026, incl. XBRL data",

@@ -188,3 +188,30 @@ SCENARIO_STORY = {
 
 # 2030 guidance reference values (S10)
 GUIDANCE_2030 = {"rev_low": 44000, "rev_high": 60000, "gm_low": 0.56, "gm_high": 0.60}
+
+# ---------------------------------------------------------------- business mix FY2025 (REPORTED, S1 note 2 & segment note)
+BUSINESS_2025 = {
+    "technology": [  # net system sales per technology: (label, units, EUR m)
+        ("EUV High-NA (EXE)", 4, 1156.9), ("EUV (NXE)", 44, 10445.8), ("DUV ArF immersion", 131, 10311.4),
+        ("DUV ArF dry", 16, 427.0), ("DUV KrF", 78, 1001.3), ("DUV i-line", 54, 307.3), ("Metrology & inspection", 208, 824.6),
+    ],
+    "installed_base": 8193.0,   # net service and field option sales
+    "end_use": [("Logic", 16054.1), ("Memory", 8420.2)],
+    "region": [("China", 9519.7), ("Taiwan", 8337.9), ("South Korea", 8159.6), ("United States", 4089.1), ("Japan", 1420.9),
+               ("Singapore", 608.4), ("EMEA", 524.3), ("Netherlands", 4.7), ("Rest of Asia", 2.7)],
+    "largest_customer_pct": 0.239, "top2_pct": 0.380, "top4_pct": 0.612,
+    "euv_units": {2024: 44, 2025: 48}, "backlog_eur_bn": 38.8,
+}
+
+MILESTONES = [  # company history (ASML corporate history page and annual reports)
+    (1984, "Founded", "Joint venture of Philips and ASM International, starting in a shed next to a Philips office in Eindhoven."),
+    (1995, "IPO", "Listed on Amsterdam and Nasdaq; full independence funds the R&D race against Nikon and Canon."),
+    (2001, "Silicon Valley Group", "Acquisition adds US scale and the step-and-scan know-how behind the TWINSCAN platform."),
+    (2010, "First EUV tool", "The NXE:3100 pre-production EUV system ships to a customer research fab after 20+ years of R&D."),
+    (2012, "Customers co-invest", "Intel, TSMC and Samsung fund EUV development and take equity stakes, which locks in the ecosystem."),
+    (2013, "Cymer", "Acquiring the EUV light-source maker secures the hardest part of the EUV supply chain."),
+    (2016, "HMI", "E-beam metrology joins the portfolio and extends holistic lithography beyond the scanner."),
+    (2019, "EUV in volume", "The first EUV-made chips reach consumer devices; EUV becomes mandatory below 7nm."),
+    (2023, "High-NA", "The first EXE:5000 High-NA EUV system ships, extending the roadmap into the 2030s."),
+    (2025, "Record year", "EUR 32.7bn sales, EUR 38.8bn backlog and 48 EUV systems recognised as AI demand broadens."),
+]
