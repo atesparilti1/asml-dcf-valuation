@@ -1,0 +1,558 @@
+{
+ "meta": {
+  "valuationDate": "2026-10-07",
+  "balanceSheetDate": "2026-06-28",
+  "fy1End": "2026-12-31",
+  "midYear": 1,
+  "gordonWeight": 0.5,
+  "analyst": "Ates Parilti"
+ },
+ "market": {
+  "price": 1611.4,
+  "shares": 384.9,
+  "cash": 7581.5,
+  "debt": 3697.7,
+  "nonop": 2310.7,
+  "h1_ufcf": -1290.9
+ },
+ "waccInputs": {
+  "rf": 0.0351,
+  "erp": 0.0423,
+  "beta_reg": 1.12,
+  "beta_ind_u": 1.39,
+  "beta_w": 0.5,
+  "spread": 0.006,
+  "tax_marg": 0.258
+ },
+ "drivers": {
+  "growth": {
+   "Bear": [
+    0.3163,
+    0.04,
+    -0.03,
+    0.04,
+    0.04
+   ],
+   "Base": [
+    0.3469,
+    0.16,
+    0.1,
+    0.07,
+    0.05
+   ],
+   "Bull": [
+    0.3775,
+    0.24,
+    0.15,
+    0.1,
+    0.08
+   ]
+  },
+  "gm": {
+   "Bear": [
+    0.54,
+    0.51,
+    0.5,
+    0.51,
+    0.52
+   ],
+   "Base": [
+    0.55,
+    0.56,
+    0.565,
+    0.57,
+    0.57
+   ],
+   "Bull": [
+    0.555,
+    0.57,
+    0.58,
+    0.59,
+    0.6
+   ]
+  },
+  "ebitda_m": {
+   "Bear": [
+    0.395,
+    0.36,
+    0.345,
+    0.355,
+    0.365
+   ],
+   "Base": [
+    0.41,
+    0.42,
+    0.425,
+    0.43,
+    0.43
+   ],
+   "Bull": [
+    0.415,
+    0.435,
+    0.45,
+    0.46,
+    0.465
+   ]
+  },
+  "da_pct": {
+   "Bear": [
+    0.028,
+    0.03,
+    0.03,
+    0.03,
+    0.03
+   ],
+   "Base": [
+    0.028,
+    0.028,
+    0.028,
+    0.028,
+    0.028
+   ],
+   "Bull": [
+    0.028,
+    0.027,
+    0.027,
+    0.027,
+    0.027
+   ]
+  },
+  "capex_pct": {
+   "Bear": [
+    0.06,
+    0.065,
+    0.065,
+    0.06,
+    0.06
+   ],
+   "Base": [
+    0.055,
+    0.055,
+    0.055,
+    0.055,
+    0.055
+   ],
+   "Bull": [
+    0.05,
+    0.05,
+    0.05,
+    0.05,
+    0.05
+   ]
+  },
+  "nwc_pct": {
+   "Bear": [
+    -0.08,
+    -0.06,
+    -0.06,
+    -0.06,
+    -0.06
+   ],
+   "Base": [
+    -0.12,
+    -0.12,
+    -0.12,
+    -0.12,
+    -0.12
+   ],
+   "Bull": [
+    -0.15,
+    -0.15,
+    -0.15,
+    -0.15,
+    -0.15
+   ]
+  },
+  "tax": {
+   "Bear": [
+    0.18,
+    0.18,
+    0.18,
+    0.18,
+    0.18
+   ],
+   "Base": [
+    0.175,
+    0.175,
+    0.175,
+    0.175,
+    0.175
+   ],
+   "Bull": [
+    0.17,
+    0.17,
+    0.17,
+    0.17,
+    0.17
+   ]
+  }
+ },
+ "driverWhy": {
+  "growth": "FY26 = 2026 guidance EUR 43-45bn (Q2-26). FY27 reflects record backlog and AI-driven capacity adds, then growth fades to ~5% as the cycle normalises. Base FY30 revenue sits just above the 2030 range of EUR 44-60bn because FY26 already exceeds its low end.",
+  "gm": "FY26 guide 54-56%. Base trends to 57%, inside ASML's 2030 target band of 56-60% (EUV mix, High-NA maturing, services).",
+  "ebitda_m": "FY25A 37.7%, H1-26 op. margin 36.6% with H2 guided higher. Opex (R&D ~14% of sales) grows slower than revenue = operating leverage. Bear shows a downturn with R&D held flat in absolute terms.",
+  "da_pct": "FY21-25 range 2.5-3.3%, FY25 3.1%. The new capacity build-out lifts the absolute D&A level.",
+  "capex_pct": "FY21-25 average 6.4% (peak 8.0% in FY23 capacity expansion, 5.0% in FY25). Base 5.5% as capex normalises but EUV/High-NA capacity is still added.",
+  "nwc_pct": "ASML runs negative NWC because customers pay EUV down payments (contract liabilities). It was -27% in FY25 but fell to about -7% of LTM sales by Jun-26 as down payments were consumed. Base normalises to -12%, below the FY21-25 average.",
+  "tax": "Effective tax rate FY21-25 15.0-18.6% (Dutch innovation box), FY25 17.7%. Pillar Two 15% minimum is not binding.",
+  "g": "Long-run nominal growth: euro-area inflation ~2% + modest real growth in semiconductor content. It is kept below the risk-free rate (3.5%) and nominal GDP.",
+  "exit": "ASML's 5-yr average EV/EBITDA is ~30x (35x forward in Aug-26). 25x applies a discount because growth has decelerated by FY30. Semi-equipment peers (AMAT, LRCX, KLAC) have traded at ~18-25x.",
+  "wacc_adj": "Bear prices extra risk for export-control and cyclical exposure. Bull assumes a lower risk premium for a structural AI capex cycle."
+ },
+ "scalars": {
+  "g": {
+   "Bear": 0.02,
+   "Base": 0.025,
+   "Bull": 0.03
+  },
+  "exit": {
+   "Bear": 18.0,
+   "Base": 25.0,
+   "Bull": 30.0
+  },
+  "wacc_adj": {
+   "Bear": 0.005,
+   "Base": 0.0,
+   "Bull": -0.005
+  }
+ },
+ "story": {
+  "Bear": "AI capex digestion in 2027-28 coincides with tighter China export controls (DUV immersion and servicing). Customers push out EUV orders, the down-payment float shrinks and margins compress as fixed R&D is held.",
+  "Base": "2026 guidance is delivered, the backlog converts, and EUV/High-NA adoption in logic and DRAM grows revenue to about EUR 63bn by 2030 with margins at the 2030 target band.",
+  "Bull": "A sustained AI-driven leading-edge build-out plus faster High-NA adoption push revenue beyond the 2030 range, with gross margin at 60% and services scaling on the installed base."
+ },
+ "hist": {
+  "2021": {
+   "revenue": 18611.0,
+   "growth": 0.3314,
+   "gm": 0.5271,
+   "ebitda": 7221.1,
+   "ebitda_m": 0.388,
+   "da": 471.0,
+   "da_pct": 0.0253,
+   "ebit": 6750.1,
+   "ebit_m": 0.3627,
+   "etr": 0.1523,
+   "taxes": 1028.1936,
+   "nopat": 5721.9064,
+   "capex": 940.3,
+   "capex_pct": 0.0505,
+   "nwc": -4414.7,
+   "nwc_pct": -0.2372,
+   "dnwc": -4765.1,
+   "ufcf": 10017.7064
+  },
+  "2022": {
+   "revenue": 21173.4,
+   "growth": 0.1377,
+   "gm": 0.5054,
+   "ebitda": 7084.3,
+   "ebitda_m": 0.3346,
+   "da": 583.6,
+   "da_pct": 0.0276,
+   "ebit": 6500.7,
+   "ebit_m": 0.307,
+   "etr": 0.1502,
+   "taxes": 976.6003,
+   "nopat": 5524.0997,
+   "capex": 1319.3,
+   "capex_pct": 0.0623,
+   "nwc": -6818.4,
+   "nwc_pct": -0.322,
+   "dnwc": -2403.7,
+   "ufcf": 7192.0997
+  },
+  "2023": {
+   "revenue": 27558.5,
+   "growth": 0.3016,
+   "gm": 0.5129,
+   "ebitda": 9782.1,
+   "ebitda_m": 0.355,
+   "da": 739.8,
+   "da_pct": 0.0268,
+   "ebit": 9042.3,
+   "ebit_m": 0.3281,
+   "etr": 0.1581,
+   "taxes": 1429.2876,
+   "nopat": 7613.0124,
+   "capex": 2196.2,
+   "capex_pct": 0.0797,
+   "nwc": -3716.3,
+   "nwc_pct": -0.1349,
+   "dnwc": 3102.1,
+   "ufcf": 3054.5124
+  },
+  "2024": {
+   "revenue": 28262.9,
+   "growth": 0.0256,
+   "gm": 0.5128,
+   "ebitda": 9941.2,
+   "ebitda_m": 0.3517,
+   "da": 918.6,
+   "da_pct": 0.0325,
+   "ebit": 9022.6,
+   "ebit_m": 0.3192,
+   "etr": 0.1859,
+   "taxes": 1676.92,
+   "nopat": 7345.68,
+   "capex": 2083.1,
+   "capex_pct": 0.0737,
+   "nwc": -6670.4,
+   "nwc_pct": -0.236,
+   "dnwc": -2954.1,
+   "ufcf": 9135.28
+  },
+  "2025": {
+   "revenue": 32667.3,
+   "growth": 0.1558,
+   "gm": 0.5283,
+   "ebitda": 12327.3,
+   "ebitda_m": 0.3774,
+   "da": 1025.9,
+   "da_pct": 0.0314,
+   "ebit": 11301.4,
+   "ebit_m": 0.346,
+   "etr": 0.1765,
+   "taxes": 1994.9184,
+   "nopat": 9306.4816,
+   "capex": 1631.2,
+   "capex_pct": 0.0499,
+   "nwc": -8920.2,
+   "nwc_pct": -0.2731,
+   "dnwc": -2249.8,
+   "ufcf": 10950.9816
+  }
+ },
+ "nwc2025": -8920.2,
+ "revenue2025": 32667.3,
+ "histRaw": {
+  "revenue": {
+   "2020": 13978.5,
+   "2021": 18611.0,
+   "2022": 21173.4,
+   "2023": 27558.5,
+   "2024": 28262.9,
+   "2025": 32667.3
+  },
+  "cogs": {
+   "2021": 8802.0,
+   "2022": 10473.3,
+   "2023": 13422.4,
+   "2024": 13770.9,
+   "2025": 15409.3
+  },
+  "gross_profit": {
+   "2021": 9809.0,
+   "2022": 10700.1,
+   "2023": 14136.1,
+   "2024": 14492.0,
+   "2025": 17258.0
+  },
+  "rnd": {
+   "2021": 2547.0,
+   "2022": 3253.5,
+   "2023": 3980.6,
+   "2024": 4303.7,
+   "2025": 4698.8
+  },
+  "sga": {
+   "2021": 725.6,
+   "2022": 945.9,
+   "2023": 1113.2,
+   "2024": 1165.7,
+   "2025": 1257.8
+  },
+  "ebit": {
+   "2021": 6750.1,
+   "2022": 6500.7,
+   "2023": 9042.3,
+   "2024": 9022.6,
+   "2025": 11301.4
+  },
+  "pretax": {
+   "2021": 6705.5,
+   "2022": 6456.1,
+   "2023": 9083.5,
+   "2024": 9042.4,
+   "2025": 11406.1
+  },
+  "tax": {
+   "2021": 1021.4,
+   "2022": 969.9,
+   "2023": 1435.8,
+   "2024": 1680.6,
+   "2025": 2013.4
+  },
+  "net_income": {
+   "2021": 5883.2,
+   "2022": 5624.2,
+   "2023": 7839.0,
+   "2024": 7571.6,
+   "2025": 9609.4
+  },
+  "da": {
+   "2021": 471.0,
+   "2022": 583.6,
+   "2023": 739.8,
+   "2024": 918.6,
+   "2025": 1025.9
+  },
+  "capex_ppe": {
+   "2021": 900.7,
+   "2022": 1281.8,
+   "2023": 2155.6,
+   "2024": 2067.2,
+   "2025": 1573.6
+  },
+  "capex_intang": {
+   "2021": 39.6,
+   "2022": 37.5,
+   "2023": 40.6,
+   "2024": 15.9,
+   "2025": 57.6
+  },
+  "cfo": {
+   "2021": 10845.8,
+   "2022": 8486.8,
+   "2023": 5443.4,
+   "2024": 11166.2,
+   "2025": 12658.5
+  },
+  "cash": {
+   "2020": 6049.4,
+   "2021": 6951.8,
+   "2022": 7268.3,
+   "2023": 7004.7,
+   "2024": 12735.9,
+   "2025": 12916.0
+  },
+  "sti": {
+   "2020": 1302.2,
+   "2021": 638.5,
+   "2022": 107.7,
+   "2023": 5.4,
+   "2024": 5.4,
+   "2025": 405.9
+  },
+  "current_assets": {
+   "2020": 15930.0,
+   "2021": 18190.2,
+   "2022": 23064.9,
+   "2023": 24393.9,
+   "2024": 30737.4,
+   "2025": 30616.1
+  },
+  "loans_rec_cur": {
+   "2020": 0.0,
+   "2021": 0.0,
+   "2022": 0.0,
+   "2023": 0.0,
+   "2024": 0.0,
+   "2025": 266.1
+  },
+  "current_liab": {
+   "2020": 6603.5,
+   "2021": 12298.0,
+   "2022": 17983.6,
+   "2023": 16274.7,
+   "2024": 20051.4,
+   "2025": 24263.9
+  },
+  "debt_current": {
+   "2020": 15.4,
+   "2021": 509.1,
+   "2022": 746.2,
+   "2023": 0.1,
+   "2024": 1010.3,
+   "2025": 1681.9
+  },
+  "debt_noncurrent": {
+   "2021": 4075.0,
+   "2022": 3514.2,
+   "2023": 4631.5,
+   "2024": 3677.3,
+   "2025": 2709.0
+  },
+  "contract_liab_nc": {
+   "2020": 1639.9,
+   "2021": 3225.7,
+   "2022": 5269.9,
+   "2023": 4825.5,
+   "2024": 5625.4,
+   "2025": 3366.3
+  },
+  "diluted_shares": {
+   "2021": 410.4,
+   "2022": 398.0,
+   "2023": 394.1,
+   "2024": 393.6,
+   "2025": 388.9
+  }
+ },
+ "sources": {
+  "S1": {
+   "title": "ASML Form 20-F / Annual Report 2025 (US GAAP), filed 25 Feb 2026, incl. XBRL data",
+   "url": "https://www.sec.gov/Archives/edgar/data/937966/000162828026011378/asml-20251231.htm"
+  },
+  "S2": {
+   "title": "SEC EDGAR XBRL company facts for ASML (20-F filings FY2020-FY2025)",
+   "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000937966.json"
+  },
+  "S3": {
+   "title": "ASML Financial Statements US GAAP Q4 2025 (Form 6-K, 28 Jan 2026)",
+   "url": "https://www.sec.gov/Archives/edgar/data/937966/000162828026003701/"
+  },
+  "S4": {
+   "title": "ASML Q2 2026 press release and Financial Statements US GAAP (Form 6-K, 15 Jul 2026)",
+   "url": "https://www.sec.gov/Archives/edgar/data/0000937966/000162828026048235/pressreleasefinancialresul.htm"
+  },
+  "S5": {
+   "title": "ASML (Euronext Amsterdam: ASML) closing price 7 Oct 2026, via stockanalysis.com",
+   "url": "https://stockanalysis.com/quote/ams/ASML/history/"
+  },
+  "S6": {
+   "title": "Germany 10Y Bund yield, 7 Oct 2026, Trading Economics",
+   "url": "https://tradingeconomics.com/germany/government-bond-yield"
+  },
+  "S7": {
+   "title": "A. Damodaran, Country risk premiums (Jan 2026): Netherlands total ERP 4.23%, CRP 0%",
+   "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/ctryprem.html"
+  },
+  "S8": {
+   "title": "A. Damodaran, Betas by sector (Jan 2026): Semiconductor Equip unlevered beta corrected for cash 1.39",
+   "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/Betas.html"
+  },
+  "S9": {
+   "title": "Yahoo Finance, ASML Beta (5Y monthly) 1.12",
+   "url": "https://finance.yahoo.com/quote/ASML/"
+  },
+  "S10": {
+   "title": "ASML 2024 Investor Day: 2030 revenue opportunity EUR 44-60bn, gross margin 56-60%",
+   "url": "https://investor.asml.com/news-releases/news-release-details/asml-provides-updated-view-market-opportunities-2024-investor-day-meeting"
+  },
+  "S11": {
+   "title": "ASML Q4 2025 press release: 2025 sales EUR 32.7bn, backlog EUR 38.8bn",
+   "url": "https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results"
+  }
+ },
+ "expected": {
+  "Bear": {
+   "gordon": 412.68625504702015,
+   "exit": 673.5161759641912,
+   "blend": 543.1012155056058,
+   "wacc": 0.09297387695585015
+  },
+  "Base": {
+   "gordon": 776.1684447426462,
+   "exit": 1429.7057632357512,
+   "blend": 1102.9371039891987,
+   "wacc": 0.08797387695585014
+  },
+  "Bull": {
+   "gordon": 1215.8270750281292,
+   "exit": 2221.11631627954,
+   "blend": 1718.4716956538346,
+   "wacc": 0.08297387695585014
+  }
+ }
+}
