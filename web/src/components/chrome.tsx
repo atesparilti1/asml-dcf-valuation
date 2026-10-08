@@ -1,4 +1,5 @@
-import { ArrowCounterClockwise, CaretUp, DownloadSimple, Moon, Sun } from "@phosphor-icons/react";
+import { ArrowCounterClockwise, CaretUp, DownloadSimple, GithubLogo, LinkedinLogo, Moon, Sun } from "@phosphor-icons/react";
+import { AUTHOR, GITHUB_REPO, LINKEDIN } from "../site";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { DATA } from "../model/dcf";
@@ -19,16 +20,26 @@ export function Nav() {
       <div className="mx-auto flex h-full max-w-[1440px] items-center justify-between gap-4 px-4 md:px-8">
         <a href="#top" className="flex items-baseline gap-3">
           <span className="text-[15px] font-semibold tracking-tight">ASML</span>
-          <span className="hidden text-sm text-muted sm:inline">Discounted cash flow valuation</span>
+          <span className="hidden text-sm text-muted sm:inline">DCF valuation by {AUTHOR}</span>
         </a>
         <nav className="hidden items-center gap-6 text-sm text-muted lg:flex">
+          <a href="#summary" className="hover:text-ink">Summary</a>
           <a href="#reported" className="hover:text-ink">History</a>
           <a href="#forecast" className="hover:text-ink">Forecast</a>
           <a href="#bridge" className="hover:text-ink">Valuation</a>
+          <a href="#comps" className="hover:text-ink">Comps</a>
           <a href="#stress" className="hover:text-ink">Sensitivity</a>
           <a href="#verdict" className="hover:text-ink">Verdict</a>
         </nav>
         <div className="flex items-center gap-2">
+          {LINKEDIN && (
+            <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn profile" className="grid size-9 place-items-center border border-line text-muted transition-colors hover:text-ink">
+              <LinkedinLogo size={16} />
+            </a>
+          )}
+          <a href={GITHUB_REPO} target="_blank" rel="noreferrer" aria-label="Source code on GitHub" className="grid size-9 place-items-center border border-line text-muted transition-colors hover:text-ink">
+            <GithubLogo size={16} />
+          </a>
           <button aria-label="Toggle colour theme" onClick={() => setTheme(isDark ? "light" : "dark")}
             className="grid size-9 place-items-center border border-line text-muted transition-colors hover:text-ink active:scale-[0.97]">
             {isDark ? <Sun size={16} /> : <Moon size={16} />}
@@ -45,9 +56,10 @@ export function Nav() {
 /* ----------------------------------------------------------- time rail */
 const SEG: [number, number, number, number][] = [
   [1984, 2020, 0, 0.27],
-  [2020, TODAY, 0.27, 0.57],
-  [TODAY, 2030.6, 0.57, 0.9],
-  [2030.6, TERMINAL, 0.9, 1],
+  [2020, TODAY, 0.27, 0.52],
+  [TODAY, 2030.6, 0.52, 0.76],
+  [2030.6, 2035.6, 0.76, 0.93],
+  [2035.6, TERMINAL, 0.93, 1],
 ];
 export function timeToX(t: number) {
   const c = Math.min(TERMINAL, Math.max(1984, t));
@@ -60,6 +72,7 @@ const TICKS = [
   ...[2021, 2022, 2023, 2024, 2025].map((y) => ({ t: y + 0.5, l: `${String(y).slice(2)}A`, id: "reported" })),
   { t: TODAY, l: "Today", id: "top" },
   ...[2027, 2028, 2029, 2030].map((y) => ({ t: y + 0.5, l: `${String(y).slice(2)}E`, id: "forecast" })),
+  ...[2031, 2033, 2035].map((y) => ({ t: y + 0.5, l: `${String(y).slice(2)}E`, id: "forecast" })),
   { t: TERMINAL, l: "∞", id: "terminal" },
 ];
 
@@ -77,7 +90,8 @@ export function TimeRail() {
             <span className="absolute" style={{ left: 0 }}>History</span>
             <span className="absolute" style={{ left: "27%" }}>Reported</span>
             <span className="absolute text-accent" style={{ left: `${today}%` }}>Forecast</span>
-            <span className="absolute" style={{ left: "90%" }}>Terminal</span>
+            <span className="absolute text-accent/70" style={{ left: "76%" }}>Fade</span>
+            <span className="absolute" style={{ left: "93%" }}>Terminal</span>
           </div>
           {/* past = ink, future = dashed accent */}
           <div className="absolute top-[26px] h-px bg-ink/60" style={{ left: 0, width: `${today}%` }} />

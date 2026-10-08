@@ -15,7 +15,7 @@ function Stack() {
   const inView = useInView(ref, { once: true, amount: 0.5 });
   const reduce = useReducedMotion();
   const H = 300;
-  const scale = H / 0.12; // 12% = full height
+  const scale = H / 0.14; // 14% = full height
   const show = inView || reduce;
   const blocks = [
     { label: "Risk-free rate", sub: "10Y Bund", v: p.rf, fill: "var(--faint)" },
@@ -87,8 +87,8 @@ export function CostOfCapital() {
           <div className="mt-8 grid gap-5">
             <Slider label="Risk-free rate" value={ov.rf ?? W.rf} min={0.02} max={0.05} step={0.0005} format={(x) => pct(x, 2)} onChange={(rf) => setOv({ rf, wacc: undefined })}
               hint="German 10Y Bund, 3.51% on 7 Oct 2026" />
-            <Slider label="Beta" value={ov.beta ?? p.betaBlend} min={0.8} max={1.8} step={0.01} format={(x) => x.toFixed(2)} onChange={(beta) => setOv({ beta, wacc: undefined })}
-              hint={`50/50 blend of regression ${W.beta_reg.toFixed(2)} and relevered industry ${p.betaIndL.toFixed(2)}`} />
+            <Slider label="Beta" value={ov.beta ?? p.betaBlend} min={0.8} max={2.2} step={0.01} format={(x) => x.toFixed(2)} onChange={(beta) => setOv({ beta, wacc: undefined })}
+              hint={`Bottom-up semiconductor-equipment beta, relevered: ${p.betaIndL.toFixed(2)}. Regression vs STOXX Europe 600 gives ${W.beta_reg.toFixed(2)} (R² 0.33), too noisy to use alone.`} />
             <Slider label="Equity risk premium" value={ov.erp ?? W.erp} min={0.03} max={0.06} step={0.0005} format={(x) => pct(x, 2)} onChange={(erp) => setOv({ erp, wacc: undefined })}
               hint="Damodaran implied ERP, January 2026" />
           </div>

@@ -18,7 +18,8 @@ const VALUE_LINK: Record<number, string> = {
   2025: "The base year of this forecast.",
 };
 
-const M = DATA.milestones;
+// six milestones that explain the moat; the full list lives in inputs.py
+const M = DATA.milestones.filter((m) => [1984, 2010, 2012, 2013, 2019, 2023].includes(m.year));
 
 function Card({ m }: { m: (typeof M)[number] }) {
   return (
@@ -67,7 +68,7 @@ export function Origins() {
   const x = useTransform(scrollYProgress, [0, 1], [0, -dist]);
   const bar = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   useMotionValueEvent(scrollYProgress, "change", (p) => {
-    if (p > 0 && p < 1) setTime(1984 + p * (2025.5 - 1984));
+    if (p > 0 && p < 1) setTime(1984 + p * (2023.5 - 1984));
   });
 
   if (reduce) {

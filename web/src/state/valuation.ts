@@ -18,7 +18,7 @@ interface State {
 }
 
 export const TODAY = 2026 + (31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 7) / 365;
-export const TERMINAL = 2032;
+export const TERMINAL = 2037;
 
 export const useStore = create<State>((set) => ({
   scenario: "Base",

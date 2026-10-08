@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/rea
 import { useMemo, useRef, useState } from "react";
 import { XLSX_HREF } from "../components/chrome";
 import { Chapter, CountUp, EASE, Reveal, Segmented, useChapterTime, useSize } from "../components/ui";
-import { type Case, CASES, DATA, gridPrice, HIST, reverse, value } from "../model/dcf";
+import { type Case, CASES, COMPS, DATA, gridPrice, HIST, reverse, value } from "../model/dcf";
 import { eur, eurm, fyLabel, mult, pct, signedPct } from "../lib/format";
 import { TODAY, useBaseline, useStore, useValuation } from "../state/valuation";
 
@@ -84,7 +84,7 @@ export function StressTest() {
               ))}
             </tbody>
           </table>
-          <p className="mt-3 text-xs text-faint">Implied price (EUR) using the live forecast. Black frame = {base.case} case centre; blue outline = inputs currently applied. Grid steps: WACC 0.5%, {table === "g" ? "g 0.25%" : "multiple 2.0x"}.</p>
+          <p className="mt-3 text-xs text-faint">Implied price (EUR) using the live forecast; growth changes the perpetuity only (fade path held). Black frame = {base.case} case centre; blue outline = inputs currently applied. Grid steps: WACC 0.5%, {table === "g" ? "g 0.25%" : "multiple 2.0x"}.</p>
         </div>
         <aside className="grid content-start gap-4 lg:col-span-3">
           <AnimatePresence mode="wait">
@@ -104,7 +104,7 @@ export function StressTest() {
                 <p className="num display text-6xl font-medium">{above}<span className="text-2xl text-faint"> / 81</span></p>
                 <p className="text-sm leading-relaxed text-muted">
                   {table === "g" ? "The Gordon method needs a far lower WACC and higher growth than the base case before value reaches the share price." :
-                    "The Exit method reaches the share price once multiples approach the high 20s, close to ASML's own 5-year average of ~30x."}
+                    `The Exit method needs about ${mult(reverse(v).multiple, 0)} FY35 EBITDA to reach the share price: above ASML's ~30x average in a high-growth decade.`}
                 </p>
               </motion.div>
             )}
@@ -194,7 +194,7 @@ export function Futures() {
 const RISKS = [
   ["Cyclicality", "Four customers are 61% of sales. One capex pause, like FY24, flattens revenue."],
   ["Export controls", "China was 29% of FY25 sales. Wider DUV or service restrictions hit the Bear case directly."],
-  ["Terminal value", "76% of the Gordon EV and 87% of the Exit EV sit beyond 2030, so small changes in g or the multiple swing the result."],
+  ["Terminal value", "Even with a ten-year horizon, terminal value is 54-69% of EV, so g and the exit multiple still move the result."],
   ["Working capital", "Customer down payments are volatile. A EUR 3-5bn swing changes near-term FCF materially."],
 ];
 
@@ -206,10 +206,12 @@ export function Verdict() {
   const up = v.blend.upside;
   const call = up > 0.15 ? "Undervalued" : up < -0.15 ? "Overvalued" : "Fairly valued";
   const method = [
-    ["Forecast", "Five explicit years (FY26-30) driven by revenue growth, EBITDA margin, D&A, CapEx, NWC and tax assumptions per scenario. UFCF = EBIT x (1 - t) + D&A - CapEx - change in NWC."],
-    ["Timing", "Valuation date 7 Oct 2026 on the 28 Jun 2026 balance sheet. FY26 counts only the H2 cash flow (FY26E less H1 actual). Mid-year discounting; terminal value discounted from end FY30."],
-    ["WACC", "CAPM with a 10Y Bund risk-free rate (3.51%), a 50/50 blend of regression and relevered industry beta, and Damodaran's 4.23% ERP. Debt at Rf + 0.60%. Market-value weights; ASML is 99% equity."],
-    ["Terminal value", "Gordon Growth (g 2.5%) and Exit Multiple (25x EBITDA), blended 50/50 for the headline. Each is cross-checked through the other's implied multiple or growth rate."],
+    ["Revenue build", "FY26-30 revenue = systems shipped x average selling price for low-NA EUV, High-NA EUV and DUV immersion, plus other DUV, metrology and installed base. Units are checked against ASML's stated capacity; FY26 lands inside the EUR 43-45bn guidance."],
+    ["Forecast and fade", "Margins, D&A, capex, working capital and tax are scenario inputs for FY26-30. FY31-35 is a fade period: growth steps linearly down to the 2.5% terminal rate, ratios held at FY30. UFCF = EBIT x (1 - t) + D&A - CapEx - change in NWC."],
+    ["Timing", "Valuation date 7 Oct 2026 on the 28 Jun 2026 balance sheet. FY26 counts only the H2 cash flow (FY26E less H1 actual). Mid-year discounting; terminal value discounted from end FY35."],
+    ["WACC", "CAPM with a 10Y Bund risk-free rate (3.51%), a bottom-up semiconductor-equipment beta of 1.40 (the 1.79 regression against the STOXX Europe 600 has an R² of 0.33, too noisy to use alone) and Damodaran's 4.23% ERP. Debt at Rf + 0.60%; ASML is 99% equity. WACC 9.38%."],
+    ["Terminal value", "Gordon Growth (g 2.5%) and Exit Multiple (20x FY35 EBITDA, a third below ASML's ~30x FY21-25 average), blended 50/50. Each is cross-checked through the other's implied multiple or growth rate."],
+    ["Trading comps", "Applied Materials, Lam Research, KLA and Tokyo Electron at 35-48x trailing EBITDA, applied to ASML's EUR 13.5bn LTM EBITDA (FY25 + H1-26 - H1-25)."],
     ["Bridge", "EV + cash and short-term investments - bonds and commercial paper + equity investments = equity value, divided by 384.9m diluted shares."],
   ];
   return (
@@ -221,8 +223,9 @@ export function Verdict() {
             <h2 className="display mt-4 text-6xl font-semibold md:text-8xl">{call}.</h2>
             <p className="mt-6 max-w-[60ch] text-lg leading-relaxed text-muted">
               The model values ASML at <span className="num text-ink"><CountUp value={v.blend.price} format={(x) => eur(x)} /></span> per share against {eur(MKT, 2)},
-              a <span className="num text-ink">{signedPct(up)}</span> gap. ASML is an exceptional business. The question is the price: today's market value needs either a terminal multiple of {mult(reverse(v).multiple)} or growth that persists well past 2030.
-              The Exit method ({eur(v.exitM.price)}) is close to the market; the Gordon method ({eur(v.gordon.price)}) is not.
+              a <span className="num text-ink">{signedPct(up)}</span> gap. ASML is an exceptional business; the question is the price. Relative to peers it looks fairly priced
+              ({eur(COMPS.pLow)} to {eur(COMPS.pHigh)} on sector multiples), but the whole sector trades on peak-cycle earnings. On its own cash flows, today's price needs {mult(reverse(v).multiple, 0)} EBITDA
+              in 2035 or {pct(reverse(v).g, 1)} growth forever after it. Only the Bull case gets close.
             </p>
           </Reveal>
           <div className="mt-10 grid gap-px bg-line sm:grid-cols-2">

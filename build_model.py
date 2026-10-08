@@ -815,7 +815,7 @@ def grid(top, label_rows, row_fmt, center_ref, step_ref, cell_formula):
     return top + 5
 
 
-put(ws, "B4", "Table 1: WACC vs terminal growth (Gordon Growth method)", F_SEC)
+put(ws, "B4", "Table 1: WACC vs terminal growth (Gordon Growth method; g changes the perpetuity only, FY31-35 fade path held at base)", F_SEC)
 t1 = grid(6, "g ↓  /  WACC →", PCT2, A["g"], "$N$6",
           lambda w, g: f"=({PVF.format(w=w)}+DCF!$N$9*(1+{g})/({w}-{g})/(1+{w})^DCF!$N$6+{BR})/{SH}")
 put(ws, "B17", "Table 2: WACC vs exit EV/EBITDA multiple (Exit Multiple method)", F_SEC)

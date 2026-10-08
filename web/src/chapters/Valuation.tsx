@@ -6,7 +6,7 @@ import { DATA, reverse } from "../model/dcf";
 import { eur, eurm, mult, num, pct } from "../lib/format";
 import { type Method, TERMINAL, TODAY, useStore, useValuation } from "../state/valuation";
 
-/* ------------------------------------------------------------- Beyond 2030 */
+/* ------------------------------------------------------------- Beyond 2035 */
 export function Terminal() {
   const ref = useChapterTime(TERMINAL);
   const v = useValuation();
@@ -20,9 +20,9 @@ export function Terminal() {
       <div className="grid gap-14 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <Reveal>
-            <h2 className="display text-4xl font-semibold md:text-5xl">Beyond 2030.</h2>
+            <h2 className="display text-4xl font-semibold md:text-5xl">Beyond 2035.</h2>
             <p className="mt-5 max-w-[46ch] text-lg leading-relaxed text-muted">
-              Five years of cash flow explain less than a quarter of the value. The rest is the terminal value, so its two methods deserve scrutiny.
+              Ten years of explicit and fade cash flows explain {pct(1 - r.tvShare, 0)} of the value. The rest is terminal value, so both methods deserve scrutiny.
             </p>
           </Reveal>
           <div className="mt-8">
@@ -32,14 +32,14 @@ export function Terminal() {
           <div className="mt-8 grid gap-5">
             {m === "gordon" ? (
               <Slider label="Terminal growth rate (g)" value={ov.g ?? v.g} min={0.01} max={0.04} step={0.0025} format={(x) => pct(x, 2)} onChange={(g) => setOv({ g })}
-                hint="TV = FCF FY30 x (1 + g) / (WACC - g)" />
+                hint="TV = FCF FY35 x (1 + g) / (WACC - g)" />
             ) : (
-              <Slider label="Exit EV/EBITDA multiple" value={ov.exit ?? v.exit} min={12} max={40} step={0.5} format={(x) => mult(x)} onChange={(exit) => setOv({ exit })}
-                hint="TV = EBITDA FY30 x multiple" />
+              <Slider label="Exit EV/EBITDA multiple" value={ov.exit ?? v.exit} min={10} max={40} step={0.5} format={(x) => mult(x)} onChange={(exit) => setOv({ exit })}
+                hint="TV = EBITDA FY35 x multiple. ASML averaged ~30x in FY21-25; peers trade at ~42x trailing today." />
             )}
           </div>
           <dl className="mt-8 grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-6">
-            <div><dt className="text-xs text-faint">Terminal value (FY30)</dt><dd className="num text-xl">{eurm(r.tv)}</dd></div>
+            <div><dt className="text-xs text-faint">Terminal value (FY35)</dt><dd className="num text-xl">{eurm(r.tv)}</dd></div>
             <div><dt className="text-xs text-faint">Share of enterprise value</dt><dd className="num text-xl">{pct(r.tvShare, 0)}</dd></div>
             <div><dt className="text-xs text-faint">Gordon implies exit multiple of</dt><dd className="num text-xl">{mult(v.impliedExit)}</dd></div>
             <div><dt className="text-xs text-faint">Exit multiple implies perpetual g of</dt><dd className="num text-xl">{pct(v.impliedG, 1)}</dd></div>
@@ -50,7 +50,7 @@ export function Terminal() {
           <div className="flex h-24 w-full">
             <motion.div className="flex h-full items-end bg-ink p-3 text-xs text-bg" initial={reduce ? false : { width: 0 }}
               animate={{ width: `${(1 - r.tvShare) * 100}%` }} transition={{ duration: 0.8, ease: EASE }}>
-              <span className="truncate">PV FY26-30 FCF<br /><span className="num">{eurm(v.sumPv)}</span></span>
+              <span className="truncate">PV FY26-35 FCF<br /><span className="num">{eurm(v.sumPv)}</span></span>
             </motion.div>
             <motion.div className="flex h-full flex-1 items-end justify-end border border-accent p-3 text-right text-xs" style={{ background: "repeating-linear-gradient(45deg, var(--accent-soft) 0 6px, transparent 6px 12px)" }}>
               <span>PV of terminal value<br /><span className="num text-accent">{eurm(r.pvTv)}</span></span>
@@ -61,8 +61,8 @@ export function Terminal() {
             <h3 className="text-xl font-semibold tracking-tight">What is the market paying for?</h3>
             <p className="mt-3 max-w-[60ch] text-[15px] leading-relaxed text-muted">
               Reverse the DCF: to justify {eur(DATA.market.price)} per share with the same forecast and WACC, the market needs an exit multiple of{" "}
-              <span className="num text-ink">{mult(rev.multiple)}</span> FY30 EBITDA, or perpetual growth of <span className="num text-ink">{pct(rev.g, 1)}</span>.
-              The first is plausible for ASML; the second is not. The share price is betting that growth continues well beyond 2030.
+              <span className="num text-ink">{mult(rev.multiple)}</span> FY35 EBITDA, or perpetual growth of <span className="num text-ink">{pct(rev.g, 1)}</span> after 2035.
+              The first means paying a growth-stock multiple for a business ten years older; the second is above any plausible long-run GDP. The share price is betting that ASML's growth phase lasts well beyond the forecast.
             </p>
           </div>
         </div>
@@ -89,8 +89,8 @@ export function Bridge() {
   const ev = v.sumPv + pvTv;
   const eq = ev + v.bridge.net;
   const steps: Step[] = [
-    { label: "PV of FCF", v: v.sumPv, kind: "add", f: "Sum of discounted FY26-30 cash flows (FY26 stub net of H1 actual)" },
-    { label: "PV of TV", v: pvTv, kind: "add", f: method === "blend" ? "50% Gordon + 50% Exit, discounted from end FY30" : "Terminal value discounted from end FY30" },
+    { label: "PV of FCF", v: v.sumPv, kind: "add", f: "Sum of discounted FY26-35 cash flows (FY26 stub net of H1 actual)" },
+    { label: "PV of TV", v: pvTv, kind: "add", f: method === "blend" ? "50% Gordon + 50% Exit, discounted from end FY35" : "Terminal value discounted from end FY35" },
     { label: "Enterprise value", v: ev, kind: "total", f: "PV of FCF + PV of terminal value" },
     { label: "+ Cash & STI", v: v.bridge.cash, kind: "add", f: "Cash 6,672 + short-term investments 910 at 28 Jun 2026" },
     { label: "- Debt", v: -v.bridge.debt, kind: "sub", f: "Eurobonds after H1-26 commercial paper repayment" },
