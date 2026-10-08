@@ -4,7 +4,7 @@
 
 **A ten-year discounted cash flow valuation of ASML, built from reported filings, checked against peers, and published as an interactive site.**
 
-[**Live site**](https://atesparilti1.github.io/asml-dcf-valuation/) · [**Excel model**](ASML_DCF_Model.xlsx) · [**Full report**](docs/ASML_Valuation_Report.md) · [**Interview notes**](docs/Interview_Prep.md)
+[**Live site**](https://atesparilti1.github.io/asml-dcf-valuation/) · [**Excel model**](ASML_DCF_Model.xlsx) · [**Full report**](docs/ASML_Valuation_Report.md)
 
 ![Model checks](https://img.shields.io/badge/model%20checks-27%2F27%20pass-2B4BFF?style=flat-square)
 ![Excel](https://img.shields.io/badge/Excel-12%20tabs%2C%20formula--driven-0B1F3A?style=flat-square)
@@ -79,7 +79,7 @@
 | [`model.py`](model.py) | Independent Python implementation of the same model |
 | [`verify_model.py`](verify_model.py) | Recalculates every Excel formula, matches it to `model.py` in all three scenarios, scans calculation tabs for hard-coded numbers |
 | [`web/`](web) | The interactive site (React, Motion, Tailwind, D3 scales); the same model in TypeScript, with parity tests |
-| [`docs/`](docs) | [Valuation report](docs/ASML_Valuation_Report.md), [interview notes](docs/Interview_Prep.md), [CV and portfolio text](docs/CV_and_Portfolio.md) |
+| [`docs/`](docs) | [Valuation report](docs/ASML_Valuation_Report.md) and screenshots |
 
 ```bash
 pip install openpyxl formulas
