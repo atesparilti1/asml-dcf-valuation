@@ -28,12 +28,14 @@ SOURCES = {
            "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/ctryprem.html"),
     "S8": ("A. Damodaran, Betas by sector (Jan 2026): Semiconductor Equip unlevered beta corrected for cash 1.39",
            "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/Betas.html"),
-    "S9": ("Yahoo Finance, ASML Beta (5Y monthly) 1.12",
-           "https://finance.yahoo.com/quote/ASML/"),
+    "S9": ("Yahoo Finance monthly and daily prices: ASML.AS and STOXX Europe 600 (^STOXX); regression beta, 52-week range, year-end prices",
+           "https://finance.yahoo.com/quote/ASML.AS/history/"),
     "S10": ("ASML 2024 Investor Day: 2030 revenue opportunity EUR 44-60bn, gross margin 56-60%",
             "https://investor.asml.com/news-releases/news-release-details/asml-provides-updated-view-market-opportunities-2024-investor-day-meeting"),
     "S11": ("ASML Q4 2025 press release: 2025 sales EUR 32.7bn, backlog EUR 38.8bn",
             "https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results"),
+    "S12": ("Peer trading data (price, market cap, EV, TTM EBITDA, forward P/E, margins) for AMAT, LRCX, KLAC, Tokyo Electron, ASML, 7-8 Oct 2026, stockanalysis.com",
+            "https://stockanalysis.com/stocks/amat/statistics/"),
 }
 
 # ---------------------------------------------------------------- historicals (REPORTED, EUR m)
@@ -77,6 +79,7 @@ SCENARIO = 2                             # 1 Bear, 2 Base, 3 Bull
 MID_YEAR = 1                             # 1 = mid-year discounting convention
 GORDON_WEIGHT = 0.5                      # weight of Gordon Growth in blended DCF price
 ANALYST = "Ates Parilti"
+FADE_YEARS = 5                           # FY31-FY35: growth fades linearly from FY30 rate to terminal g; margins held at FY30
 
 # ---------------------------------------------------------------- market & latest balance sheet
 MARKET = {
@@ -86,32 +89,74 @@ MARKET = {
     "debt":      (3697.7, "DERIVED", "S1/S4", "FY25 borrowings 4,390.9 (LT 2,709.0 + current 1,681.9 incl. ECP) less H1-26 repayments 693.2"),
     "nonop":     (2310.7, "REPORTED", "S4", "Equity investments 1,324.9 + equity-method investments 985.8 at 28 Jun 2026"),
     "h1_ufcf":   (-1290.9, "DERIVED", "S4", "H1-26 CFO (482.5) - PP&E capex 701.8 - intangibles 106.6; already reflected in 28 Jun cash"),
+    "low52":     (813.90, "MARKET", "S9", "52-week low close, Euronext Amsterdam (Oct-25 to Oct-26)"),
+    "high52":    (1721.40, "MARKET", "S9", "52-week high close, Euronext Amsterdam (Oct-25 to Oct-26)"),
 }
+
+# LTM EBITDA to 28 Jun 2026 = FY25 + H1-26 - H1-25 (REPORTED, S4)
+H1 = {"ebit_h1_26": 6613.9, "da_h1_26": 506.3, "ebit_h1_25": 5402.0, "da_h1_25": 496.2}
+
+# ASML year-end closing prices (MARKET, S9) for historical EV/EBITDA
+YEAR_END_PRICE = {2021: 706.70, 2022: 503.80, 2023: 681.70, 2024: 678.70, 2025: 921.40}
+
+# Trading comparables (MARKET, S12). EV and EBITDA in billions of local currency; multiples are currency-neutral.
+COMPS = [
+    # name, ticker, ccy, EV (bn), EBITDA TTM (bn), forward P/E, gross margin, operating margin
+    ("Applied Materials", "AMAT", "USD", 411.30, 10.16, 29.56, 0.494, 0.3122),
+    ("Lam Research", "LRCX", "USD", 410.90, 8.64, 34.78, 0.5047, 0.3529),
+    ("KLA", "KLAC", "USD", 258.11, 6.05, 36.20, 0.613, 0.4169),
+    ("Tokyo Electron", "8035.T", "JPY", 27300.0, 778.34, 33.33, 0.4556, 0.2634),
+]
+ASML_TRADING = {"ev": 607.00, "ebitda": 13.49, "fpe": 32.93, "gm": 0.5273, "om": 0.3542}
 
 WACC_IN = {
     "rf":          (0.0351, "MARKET", "S6", "German 10Y Bund yield 7 Oct 2026; EUR risk-free matching EUR cash flows"),
     "erp":         (0.0423, "MARKET", "S7", "Damodaran implied mature-market ERP, Netherlands CRP = 0"),
-    "beta_reg":    (1.12, "MARKET", "S9", "Regression beta, 5Y monthly"),
+    "beta_reg":    (1.79, "DERIVED", "S9", "Regression vs STOXX Europe 600, 60 monthly returns Oct-21 to Sep-26 (R² 0.33, std. error ~0.34): too noisy to use alone"),
     "beta_ind_u":  (1.39, "MARKET", "S8", "Semiconductor equipment unlevered beta, cash-corrected"),
-    "beta_w":      (0.50, "ASSUMPTION", "", "Equal weight regression vs bottom-up: regression is noisy, industry beta captures cyclicality"),
+    "beta_w":      (0.0, "ASSUMPTION", "", "0% weight on regression: bottom-up industry beta is used (standard practice when the regression is imprecise)"),
     "spread":      (0.0060, "ASSUMPTION", "S1", "Credit spread for A1/A+ (Moody's/Fitch) EUR corporate issuer"),
     "tax_marg":    (0.258, "ASSUMPTION", "", "Dutch statutory CIT rate 25.8% for the interest tax shield"),
 }
 
-# ---------------------------------------------------------------- scenario drivers (ASSUMPTION), FY26E..FY30E
-# FY26 growth anchored to 2026 guidance EUR 43-45bn (S4): bear 43.0bn, base 44.0bn, bull 45.0bn
-def _g(target):
-    return round(target / HIST["revenue"][2025] - 1, 4)
+# ---------------------------------------------------------------- revenue build (units x ASP), FY26E..FY30E
+# FY25 base year (REPORTED, S1 revenue disaggregation). ASP = segment sales / units, EUR m per system.
+REV_BASE_2025 = {"nxe_u": 44, "nxe_rev": 10445.8, "exe_u": 4, "exe_rev": 1156.9, "arfi_u": 131, "arfi_rev": 10311.4,
+                 "odv": 1735.6, "mi": 824.6, "ib": 8193.0}
+# Anchors (S4, Q2-26 release): 2026 low-NA EUV capacity ~65 systems, DUV immersion ~130; +30% planned for 2027,
+# a further +30% under investigation for 2028. FY26 calibrated to 2026 guidance of EUR 43-45bn (bear 43, base 44, bull 45).
+REV_SEGMENTS = [
+    # key, label, kind ("units"/"asp"/"growth"), unit label
+    ("nxe_u", "EUV low-NA (NXE) systems", "units", "#"),
+    ("nxe_p", "EUV low-NA ASP", "asp", "EUR m"),
+    ("exe_u", "EUV High-NA (EXE) systems", "units", "#"),
+    ("exe_p", "EUV High-NA ASP", "asp", "EUR m"),
+    ("arfi_u", "DUV immersion (ArFi) systems", "units", "#"),
+    ("arfi_p", "DUV immersion ASP", "asp", "EUR m"),
+    ("odv_g", "Other DUV (dry, KrF, i-line) growth", "growth", "%"),
+    ("mi_g", "Metrology & inspection growth", "growth", "%"),
+    ("ib_g", "Installed base management growth", "growth", "%"),
+]
+REV_DRIVERS = {
+    "Bear": {"nxe_u": [64, 66, 60, 66, 70], "nxe_p": [252, 250, 252, 255, 258],
+             "exe_u": [8, 9, 10, 12, 14], "exe_p": [345, 350, 355, 360, 365],
+             "arfi_u": [130, 110, 95, 100, 105], "arfi_p": [84, 84, 84, 85, 86],
+             "odv_g": [-0.05, -0.10, -0.10, 0.0, 0.0], "mi_g": [0.10, 0.02, 0.0, 0.03, 0.03], "ib_g": [0.30, 0.04, 0.02, 0.04, 0.04]},
+    "Base": {"nxe_u": [65, 75, 82, 86, 88], "nxe_p": [255, 260, 265, 270, 275],
+             "exe_u": [8, 10, 14, 18, 22], "exe_p": [350, 360, 370, 380, 390],
+             "arfi_u": [130, 145, 150, 145, 140], "arfi_p": [86, 87, 89, 91, 93],
+             "odv_g": [0.0, 0.0, 0.0, 0.0, 0.0], "mi_g": [0.20, 0.10, 0.08, 0.06, 0.05], "ib_g": [0.30, 0.12, 0.10, 0.08, 0.07]},
+    "Bull": {"nxe_u": [65, 84, 100, 106, 110], "nxe_p": [258, 262, 270, 277, 284],
+             "exe_u": [9, 14, 20, 26, 32], "exe_p": [355, 370, 385, 395, 405],
+             "arfi_u": [130, 165, 180, 175, 170], "arfi_p": [88, 89, 92, 94, 96],
+             "odv_g": [0.02, 0.05, 0.0, 0.0, 0.0], "mi_g": [0.22, 0.14, 0.12, 0.10, 0.08], "ib_g": [0.31, 0.15, 0.13, 0.11, 0.10]},
+}
+REV_WHY = ("Units are anchored to ASML's stated capacity: ~65 low-NA EUV and ~130 DUV immersion systems in 2026, +30% planned for 2027 and "
+           "+30% being studied for 2028. Base runs below full capacity from 2028 (utilisation ~80%). ASPs start from FY25 actuals (NXE EUR 237m, "
+           "ArFi EUR 79m) and rise 2%/yr with mix (NXE:3800E, NXT:2100i). High-NA ramps from 4 R&D tools to 22 in 2030. Installed base +30% in "
+           "2026 (H1-26: +28%), then grows with the fleet. FY26 total is calibrated to the EUR 43-45bn guidance.")
 
 DRIVERS = {
-    "growth": {
-        "label": "Revenue growth", "unit": "%",
-        "Bear": [_g(43000), 0.04, -0.03, 0.04, 0.04],
-        "Base": [_g(44000), 0.16, 0.10, 0.07, 0.05],
-        "Bull": [_g(45000), 0.24, 0.15, 0.10, 0.08],
-        "why": "FY26 = 2026 guidance EUR 43-45bn (Q2-26). FY27 reflects record backlog and AI-driven capacity adds, then growth fades to "
-               "~5% as the cycle normalises. Base FY30 revenue sits just above the 2030 range of EUR 44-60bn because FY26 already exceeds its low end.",
-    },
     "gm": {
         "label": "Gross margin", "unit": "%",
         "Bear": [0.540, 0.510, 0.500, 0.510, 0.520],
@@ -165,10 +210,10 @@ SCALARS = {
         "why": "Long-run nominal growth: euro-area inflation ~2% + modest real growth in semiconductor content. It is kept below the risk-free rate (3.5%) and nominal GDP.",
     },
     "exit": {
-        "label": "Exit EV/EBITDA multiple", "unit": "x",
-        "Bear": 18.0, "Base": 25.0, "Bull": 30.0,
-        "why": "ASML's 5-yr average EV/EBITDA is ~30x (35x forward in Aug-26). 25x applies a discount because growth has decelerated by FY30. "
-               "Semi-equipment peers (AMAT, LRCX, KLAC) have traded at ~18-25x.",
+        "label": "Exit EV/EBITDA multiple (on FY35 EBITDA)", "unit": "x",
+        "Bear": 15.0, "Base": 20.0, "Bull": 25.0,
+        "why": "Applied to FY35 EBITDA, after growth has faded to the terminal rate. ASML's FY21-25 average year-end EV/EBITDA is ~30x and peers trade at "
+               "~42x trailing today (Comps tab), but both reflect a high-growth phase. A mature 2035 ASML deserves a discount: 20x is a third below its own average.",
     },
     "wacc_adj": {
         "label": "WACC adjustment vs. CAPM WACC", "unit": "%",
@@ -180,9 +225,9 @@ SCALARS = {
 SCENARIO_STORY = {
     "Bear": "AI capex digestion in 2027-28 coincides with tighter China export controls (DUV immersion and servicing). "
             "Customers push out EUV orders, the down-payment float shrinks and margins compress as fixed R&D is held.",
-    "Base": "2026 guidance is delivered, the backlog converts, and EUV/High-NA adoption in logic and DRAM grows revenue to about EUR 63bn by 2030 "
+    "Base": "2026 guidance is delivered, the backlog converts, and EUV/High-NA adoption in logic and DRAM lift revenue to about EUR 64bn by 2030 (88 low-NA and 22 High-NA EUV systems) "
             "with margins at the 2030 target band.",
-    "Bull": "A sustained AI-driven leading-edge build-out plus faster High-NA adoption push revenue beyond the 2030 range, "
+    "Bull": "A sustained AI-driven leading-edge build-out plus faster High-NA adoption push EUV shipments to 110 low-NA and 32 High-NA systems and revenue to about EUR 81bn, "
             "with gross margin at 60% and services scaling on the installed base.",
 }
 

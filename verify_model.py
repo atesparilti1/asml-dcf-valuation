@@ -71,7 +71,7 @@ for idx, case in enumerate(M.CASES, start=1):
 
 # hard-code scan
 num = re.compile(r"^-?\d+(\.\d+)?$")
-for name in ["Forecast", "WACC", "DCF", "Scenarios", "Dashboard", "Checks"]:
+for name in ["Revenue Build", "Forecast", "WACC", "DCF", "Scenarios", "Dashboard", "Checks"]:
     ws = wb[name]
     for row in ws.iter_rows():
         for c in row:

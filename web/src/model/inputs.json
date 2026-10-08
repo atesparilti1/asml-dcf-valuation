@@ -5,7 +5,9 @@
   "fy1End": "2026-12-31",
   "midYear": 1,
   "gordonWeight": 0.5,
-  "analyst": "Ates Parilti"
+  "analyst": "Ates Parilti",
+  "fadeYears": 5,
+  "nChecks": 28
  },
  "market": {
   "price": 1611.4,
@@ -13,41 +15,20 @@
   "cash": 7581.5,
   "debt": 3697.7,
   "nonop": 2310.7,
-  "h1_ufcf": -1290.9
+  "h1_ufcf": -1290.9,
+  "low52": 813.9,
+  "high52": 1721.4
  },
  "waccInputs": {
   "rf": 0.0351,
   "erp": 0.0423,
-  "beta_reg": 1.12,
+  "beta_reg": 1.79,
   "beta_ind_u": 1.39,
-  "beta_w": 0.5,
+  "beta_w": 0.0,
   "spread": 0.006,
   "tax_marg": 0.258
  },
  "drivers": {
-  "growth": {
-   "Bear": [
-    0.3163,
-    0.04,
-    -0.03,
-    0.04,
-    0.04
-   ],
-   "Base": [
-    0.3469,
-    0.16,
-    0.1,
-    0.07,
-    0.05
-   ],
-   "Bull": [
-    0.3775,
-    0.24,
-    0.15,
-    0.1,
-    0.08
-   ]
-  },
   "gm": {
    "Bear": [
     0.54,
@@ -187,8 +168,216 @@
    ]
   }
  },
+ "revDrivers": {
+  "Bear": {
+   "nxe_u": [
+    64,
+    66,
+    60,
+    66,
+    70
+   ],
+   "nxe_p": [
+    252,
+    250,
+    252,
+    255,
+    258
+   ],
+   "exe_u": [
+    8,
+    9,
+    10,
+    12,
+    14
+   ],
+   "exe_p": [
+    345,
+    350,
+    355,
+    360,
+    365
+   ],
+   "arfi_u": [
+    130,
+    110,
+    95,
+    100,
+    105
+   ],
+   "arfi_p": [
+    84,
+    84,
+    84,
+    85,
+    86
+   ],
+   "odv_g": [
+    -0.05,
+    -0.1,
+    -0.1,
+    0.0,
+    0.0
+   ],
+   "mi_g": [
+    0.1,
+    0.02,
+    0.0,
+    0.03,
+    0.03
+   ],
+   "ib_g": [
+    0.3,
+    0.04,
+    0.02,
+    0.04,
+    0.04
+   ]
+  },
+  "Base": {
+   "nxe_u": [
+    65,
+    75,
+    82,
+    86,
+    88
+   ],
+   "nxe_p": [
+    255,
+    260,
+    265,
+    270,
+    275
+   ],
+   "exe_u": [
+    8,
+    10,
+    14,
+    18,
+    22
+   ],
+   "exe_p": [
+    350,
+    360,
+    370,
+    380,
+    390
+   ],
+   "arfi_u": [
+    130,
+    145,
+    150,
+    145,
+    140
+   ],
+   "arfi_p": [
+    86,
+    87,
+    89,
+    91,
+    93
+   ],
+   "odv_g": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "mi_g": [
+    0.2,
+    0.1,
+    0.08,
+    0.06,
+    0.05
+   ],
+   "ib_g": [
+    0.3,
+    0.12,
+    0.1,
+    0.08,
+    0.07
+   ]
+  },
+  "Bull": {
+   "nxe_u": [
+    65,
+    84,
+    100,
+    106,
+    110
+   ],
+   "nxe_p": [
+    258,
+    262,
+    270,
+    277,
+    284
+   ],
+   "exe_u": [
+    9,
+    14,
+    20,
+    26,
+    32
+   ],
+   "exe_p": [
+    355,
+    370,
+    385,
+    395,
+    405
+   ],
+   "arfi_u": [
+    130,
+    165,
+    180,
+    175,
+    170
+   ],
+   "arfi_p": [
+    88,
+    89,
+    92,
+    94,
+    96
+   ],
+   "odv_g": [
+    0.02,
+    0.05,
+    0.0,
+    0.0,
+    0.0
+   ],
+   "mi_g": [
+    0.22,
+    0.14,
+    0.12,
+    0.1,
+    0.08
+   ],
+   "ib_g": [
+    0.31,
+    0.15,
+    0.13,
+    0.11,
+    0.1
+   ]
+  }
+ },
+ "revBase": {
+  "nxe_u": 44,
+  "nxe_rev": 10445.8,
+  "exe_u": 4,
+  "exe_rev": 1156.9,
+  "arfi_u": 131,
+  "arfi_rev": 10311.4,
+  "odv": 1735.6,
+  "mi": 824.6,
+  "ib": 8193.0
+ },
+ "revWhy": "Units are anchored to ASML's stated capacity: ~65 low-NA EUV and ~130 DUV immersion systems in 2026, +30% planned for 2027 and +30% being studied for 2028. Base runs below full capacity from 2028 (utilisation ~80%). ASPs start from FY25 actuals (NXE EUR 237m, ArFi EUR 79m) and rise 2%/yr with mix (NXE:3800E, NXT:2100i). High-NA ramps from 4 R&D tools to 22 in 2030. Installed base +30% in 2026 (H1-26: +28%), then grows with the fleet. FY26 total is calibrated to the EUR 43-45bn guidance.",
  "driverWhy": {
-  "growth": "FY26 = 2026 guidance EUR 43-45bn (Q2-26). FY27 reflects record backlog and AI-driven capacity adds, then growth fades to ~5% as the cycle normalises. Base FY30 revenue sits just above the 2030 range of EUR 44-60bn because FY26 already exceeds its low end.",
   "gm": "FY26 guide 54-56%. Base trends to 57%, inside ASML's 2030 target band of 56-60% (EUV mix, High-NA maturing, services).",
   "ebitda_m": "FY25A 37.7%, H1-26 op. margin 36.6% with H2 guided higher. Opex (R&D ~14% of sales) grows slower than revenue = operating leverage. Bear shows a downturn with R&D held flat in absolute terms.",
   "da_pct": "FY21-25 range 2.5-3.3%, FY25 3.1%. The new capacity build-out lifts the absolute D&A level.",
@@ -196,7 +385,7 @@
   "nwc_pct": "ASML runs negative NWC because customers pay EUV down payments (contract liabilities). It was -27% in FY25 but fell to about -7% of LTM sales by Jun-26 as down payments were consumed. Base normalises to -12%, below the FY21-25 average.",
   "tax": "Effective tax rate FY21-25 15.0-18.6% (Dutch innovation box), FY25 17.7%. Pillar Two 15% minimum is not binding.",
   "g": "Long-run nominal growth: euro-area inflation ~2% + modest real growth in semiconductor content. It is kept below the risk-free rate (3.5%) and nominal GDP.",
-  "exit": "ASML's 5-yr average EV/EBITDA is ~30x (35x forward in Aug-26). 25x applies a discount because growth has decelerated by FY30. Semi-equipment peers (AMAT, LRCX, KLAC) have traded at ~18-25x.",
+  "exit": "Applied to FY35 EBITDA, after growth has faded to the terminal rate. ASML's FY21-25 average year-end EV/EBITDA is ~30x and peers trade at ~42x trailing today (Comps tab), but both reflect a high-growth phase. A mature 2035 ASML deserves a discount: 20x is a third below its own average.",
   "wacc_adj": "Bear prices extra risk for export-control and cyclical exposure. Bull assumes a lower risk premium for a structural AI capex cycle."
  },
  "scalars": {
@@ -206,9 +395,9 @@
    "Bull": 0.03
   },
   "exit": {
-   "Bear": 18.0,
-   "Base": 25.0,
-   "Bull": 30.0
+   "Bear": 15.0,
+   "Base": 20.0,
+   "Bull": 25.0
   },
   "wacc_adj": {
    "Bear": 0.005,
@@ -218,8 +407,8 @@
  },
  "story": {
   "Bear": "AI capex digestion in 2027-28 coincides with tighter China export controls (DUV immersion and servicing). Customers push out EUV orders, the down-payment float shrinks and margins compress as fixed R&D is held.",
-  "Base": "2026 guidance is delivered, the backlog converts, and EUV/High-NA adoption in logic and DRAM grows revenue to about EUR 63bn by 2030 with margins at the 2030 target band.",
-  "Bull": "A sustained AI-driven leading-edge build-out plus faster High-NA adoption push revenue beyond the 2030 range, with gross margin at 60% and services scaling on the installed base."
+  "Base": "2026 guidance is delivered, the backlog converts, and EUV/High-NA adoption in logic and DRAM lift revenue to about EUR 64bn by 2030 (88 low-NA and 22 High-NA EUV systems) with margins at the 2030 target band.",
+  "Bull": "A sustained AI-driven leading-edge build-out plus faster High-NA adoption push EUV shipments to 110 low-NA and 32 High-NA systems and revenue to about EUR 81bn, with gross margin at 60% and services scaling on the installed base."
  },
  "hist": {
   "2021": {
@@ -240,7 +429,8 @@
    "nwc": -4414.7,
    "nwc_pct": -0.2372,
    "dnwc": -4765.1,
-   "ufcf": 10017.7064
+   "ufcf": 10017.7064,
+   "ev_ebitda": 39.7479
   },
   "2022": {
    "revenue": 21173.4,
@@ -260,7 +450,8 @@
    "nwc": -6818.4,
    "nwc_pct": -0.322,
    "dnwc": -2403.7,
-   "ufcf": 7192.0997
+   "ufcf": 7192.0997,
+   "ev_ebitda": 27.864
   },
   "2023": {
    "revenue": 27558.5,
@@ -280,7 +471,8 @@
    "nwc": -3716.3,
    "nwc_pct": -0.1349,
    "dnwc": 3102.1,
-   "ufcf": 3054.5124
+   "ufcf": 3054.5124,
+   "ev_ebitda": 27.2211
   },
   "2024": {
    "revenue": 28262.9,
@@ -300,7 +492,8 @@
    "nwc": -6670.4,
    "nwc_pct": -0.236,
    "dnwc": -2954.1,
-   "ufcf": 9135.28
+   "ufcf": 9135.28,
+   "ev_ebitda": 26.0615
   },
   "2025": {
    "revenue": 32667.3,
@@ -320,7 +513,8 @@
    "nwc": -8920.2,
    "nwc_pct": -0.2731,
    "dnwc": -2249.8,
-   "ufcf": 10950.9816
+   "ufcf": 10950.9816,
+   "ev_ebitda": 28.3437
   }
  },
  "nwc2025": -8920.2,
@@ -643,6 +837,59 @@
   "gm_low": 0.56,
   "gm_high": 0.6
  },
+ "comps": {
+  "peers": [
+   {
+    "name": "Applied Materials",
+    "ticker": "AMAT",
+    "ccy": "USD",
+    "ev": 411.3,
+    "ebitda": 10.16,
+    "fpe": 29.56,
+    "gm": 0.494,
+    "om": 0.3122
+   },
+   {
+    "name": "Lam Research",
+    "ticker": "LRCX",
+    "ccy": "USD",
+    "ev": 410.9,
+    "ebitda": 8.64,
+    "fpe": 34.78,
+    "gm": 0.5047,
+    "om": 0.3529
+   },
+   {
+    "name": "KLA",
+    "ticker": "KLAC",
+    "ccy": "USD",
+    "ev": 258.11,
+    "ebitda": 6.05,
+    "fpe": 36.2,
+    "gm": 0.613,
+    "om": 0.4169
+   },
+   {
+    "name": "Tokyo Electron",
+    "ticker": "8035.T",
+    "ccy": "JPY",
+    "ev": 27300.0,
+    "ebitda": 778.34,
+    "fpe": 33.33,
+    "gm": 0.4556,
+    "om": 0.2634
+   }
+  ],
+  "asml": {
+   "ev": 607.0,
+   "ebitda": 13.49,
+   "fpe": 32.93,
+   "gm": 0.5273,
+   "om": 0.3542
+  },
+  "ltmEbitda": 13549.299999999996,
+  "histAvgEvEbitda": 29.84763631631865
+ },
  "sources": {
   "S1": {
    "title": "ASML Form 20-F / Annual Report 2025 (US GAAP), filed 25 Feb 2026, incl. XBRL data",
@@ -677,8 +924,8 @@
    "url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/Betas.html"
   },
   "S9": {
-   "title": "Yahoo Finance, ASML Beta (5Y monthly) 1.12",
-   "url": "https://finance.yahoo.com/quote/ASML/"
+   "title": "Yahoo Finance monthly and daily prices: ASML.AS and STOXX Europe 600 (^STOXX); regression beta, 52-week range, year-end prices",
+   "url": "https://finance.yahoo.com/quote/ASML.AS/history/"
   },
   "S10": {
    "title": "ASML 2024 Investor Day: 2030 revenue opportunity EUR 44-60bn, gross margin 56-60%",
@@ -687,26 +934,33 @@
   "S11": {
    "title": "ASML Q4 2025 press release: 2025 sales EUR 32.7bn, backlog EUR 38.8bn",
    "url": "https://www.asml.com/en/news/press-releases/2026/q4-2025-financial-results"
+  },
+  "S12": {
+   "title": "Peer trading data (price, market cap, EV, TTM EBITDA, forward P/E, margins) for AMAT, LRCX, KLAC, Tokyo Electron, ASML, 7-8 Oct 2026, stockanalysis.com",
+   "url": "https://stockanalysis.com/stocks/amat/statistics/"
   }
  },
  "expected": {
   "Bear": {
-   "gordon": 412.68625504702015,
-   "exit": 673.5161759641912,
-   "blend": 543.1012155056058,
-   "wacc": 0.09297387695585015
+   "gordon": 407.4341614246728,
+   "exit": 549.1772410152124,
+   "blend": 478.30570121994265,
+   "wacc": 0.09877981262700603,
+   "rev30": 46737.520410232
   },
   "Base": {
-   "gordon": 776.1684447426462,
-   "exit": 1429.7057632357512,
-   "blend": 1102.9371039891987,
-   "wacc": 0.08797387695585014
+   "gordon": 758.74760243807,
+   "exit": 1111.855833134619,
+   "blend": 935.3017177863444,
+   "wacc": 0.09377981262700602,
+   "rev30": 64007.664692160004
   },
   "Bull": {
-   "gordon": 1215.8270750281292,
-   "exit": 2221.11631627954,
-   "blend": 1718.4716956538346,
-   "wacc": 0.08297387695585014
+   "gordon": 1244.2883530159163,
+   "exit": 1928.870992493767,
+   "blend": 1586.5796727548418,
+   "wacc": 0.08877981262700602,
+   "rev30": 80934.4538987458
   }
  }
 }
