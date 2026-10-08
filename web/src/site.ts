@@ -2,4 +2,4 @@
 export const AUTHOR = "Ates Parilti";
 export const AUTHOR_LINE = "Industrial Engineering, TU Eindhoven";
 export const GITHUB_REPO = "https://github.com/atesparilti1/asml-dcf-valuation";
-export const LINKEDIN = "";
+export const LINKEDIN = "https://www.linkedin.com/in/atesparilti/";

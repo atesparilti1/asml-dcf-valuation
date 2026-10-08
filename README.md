@@ -95,4 +95,4 @@ Financial statement analysis (US GAAP) · bottom-up revenue modelling · unlever
 
 ---
 
-<sub>By Ates Parilti, Industrial Engineering, TU Eindhoven. Educational project, not investment advice. Historical figures come from ASML's public filings; forecasts and the valuation are the author's own assumptions.</sub>
+<sub>By [Ates Parilti](https://www.linkedin.com/in/atesparilti/), Industrial Engineering, TU Eindhoven. Educational project, not investment advice. Historical figures come from ASML's public filings; forecasts and the valuation are the author's own assumptions.</sub>
